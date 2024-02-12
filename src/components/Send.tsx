@@ -85,9 +85,9 @@ export const Send = ({
       );
 
       signature = await sendTransaction(tx, connection);
-      console.log('Signature: ', signature);
+
       const latestBlockHash = await connection.getLatestBlockhash();
-      console.log('Latesthash: ', latestBlockHash);
+
       const a = await connection.confirmTransaction(
         {
           signature,
@@ -97,7 +97,6 @@ export const Send = ({
         'confirmed',
       );
 
-      console.log('Confirmed: ', a);
       e.target.reset();
       setOpenSendModal(false);
       notify({

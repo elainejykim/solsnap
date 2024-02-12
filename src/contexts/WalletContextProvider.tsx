@@ -15,7 +15,7 @@ const WalletContextProvider: FC<{
 }> = ({ children, network }) => {
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
-  const wallets = useMemo(() => [new SnapWalletAdapter()], [network]);
+  const wallets = useMemo(() => [new SnapWalletAdapter()], []);
 
   const onError = useCallback((error: WalletError) => {
     notify({

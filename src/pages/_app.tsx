@@ -22,7 +22,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
 
       <WalletContextProvider network={network}>
         <div className="content">
-          <Notifications />
+          <Notifications network={network} />
           <Header network={network} setNetwork={setNetwork} />
           <Component {...pageProps} />
         </div>

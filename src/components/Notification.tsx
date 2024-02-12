@@ -4,11 +4,10 @@ import {
   InformationCircleIcon,
   XCircleIcon,
 } from '@heroicons/react/outline';
-import { XIcon } from '@heroicons/react/solid';
 import useNotificationStore from '../stores/useNotificationStore';
-import { useConnection } from '@solana/wallet-adapter-react';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 
-const NotificationList = () => {
+const NotificationList = ({ network }: { network: WalletAdapterNetwork }) => {
   const { notifications, set: setNotificationStore } = useNotificationStore(
     (s) => s,
   );
@@ -20,6 +19,7 @@ const NotificationList = () => {
       <div className="notifications_list">
         {reversedNotifications.map((n, idx) => (
           <Notification
+            network={network}
             key={`${n.message}${idx}`}
             type={n.type}
             message={n.message}
@@ -41,7 +41,14 @@ const NotificationList = () => {
   );
 };
 
-const Notification = ({ type, message, description, txid, onHide }) => {
+const Notification = ({
+  network,
+  type,
+  message,
+  description,
+  txid,
+  onHide,
+}) => {
   useEffect(() => {
     const id = setTimeout(() => {
       onHide();
@@ -82,7 +89,9 @@ const Notification = ({ type, message, description, txid, onHide }) => {
             <div>
               <a
                 href={
-                  'https://explorer.solana.com/tx/' + txid + `?cluster=devnet`
+                  'https://explorer.solana.com/tx/' +
+                  txid +
+                  `?cluster=${network}`
                 }
                 target="_blank"
                 rel="noreferrer"
